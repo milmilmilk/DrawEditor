@@ -1,0 +1,19 @@
+(問題5)
+execlやexecvを使うときの第一引数は"/bin/"が必要であった。一方、execlpやexecvpは環境変数PATHの値を使用するため"/bin/"が分からないときに用いる。
+
+(問題6)
+ソースコード
+#include <unistd.h>
+#include <stdio.h>
+
+main(int argc, char **argv){
+
+  char *new_argv[argc];
+  int i;
+  for(i=0; i<argc-1; i++){
+    new_argv[i] = argv[i+1];
+  }
+  new_argv[argc-1] = NULL;
+
+  execvp(argv[1], new_argv);
+}
